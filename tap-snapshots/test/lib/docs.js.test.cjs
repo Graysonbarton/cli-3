@@ -119,7 +119,6 @@ Array [
   "get",
   "help",
   "help-search",
-  "hook",
   "init",
   "install",
   "install-ci-test",
@@ -3200,38 +3199,11 @@ Note: This command is unaware of workspaces.
 #### \`long\`
 `
 
-exports[`test/lib/docs.js TAP usage hook > must match snapshot 1`] = `
-Manage registry hooks
-
-Usage:
-npm hook add <pkg> <url> <secret> [--type=<type>]
-npm hook ls [pkg]
-npm hook rm <id>
-npm hook update <id> <url> <secret>
-
-Options:
-[--registry <registry>] [--otp <otp>]
-
-Run "npm help hook" for more info
-
-\`\`\`bash
-npm hook add <pkg> <url> <secret> [--type=<type>]
-npm hook ls [pkg]
-npm hook rm <id>
-npm hook update <id> <url> <secret>
-\`\`\`
-
-Note: This command is unaware of workspaces.
-
-#### \`registry\`
-#### \`otp\`
-`
-
 exports[`test/lib/docs.js TAP usage init > must match snapshot 1`] = `
 Create a package.json file
 
 Usage:
-npm init <package-spec> (same as \`npx <package-spec>\`)
+npm init <package-spec> (same as \`npx create-<package-spec>\`)
 npm init <@scope> (same as \`npx <@scope>/create\`)
 
 Options:
@@ -3246,7 +3218,7 @@ aliases: create, innit
 Run "npm help init" for more info
 
 \`\`\`bash
-npm init <package-spec> (same as \`npx <package-spec>\`)
+npm init <package-spec> (same as \`npx create-<package-spec>\`)
 npm init <@scope> (same as \`npx <@scope>/create\`)
 
 aliases: create, innit
