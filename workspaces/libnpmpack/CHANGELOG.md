@@ -4,6 +4,193 @@
 
 * [workspace](https://github.com/npm/cli/releases/tag/arborist-v7.5.4): `@npmcli/arborist@7.5.4`
 
+### Dependencies
+
+* [workspace](https://github.com/npm/cli/releases/tag/arborist-v9.0.1): `@npmcli/arborist@9.0.1`
+
+### Dependencies
+
+* [workspace](https://github.com/npm/cli/releases/tag/arborist-v9.0.2): `@npmcli/arborist@9.0.2`
+
+### Dependencies
+
+* [workspace](https://github.com/npm/cli/releases/tag/arborist-v9.1.0): `@npmcli/arborist@9.1.0`
+
+### Dependencies
+
+* [workspace](https://github.com/npm/cli/releases/tag/arborist-v9.1.1): `@npmcli/arborist@9.1.1`
+
+### Dependencies
+
+* [workspace](https://github.com/npm/cli/releases/tag/arborist-v9.1.2): `@npmcli/arborist@9.1.2`
+
+### Dependencies
+
+* [workspace](https://github.com/npm/cli/releases/tag/arborist-v9.1.3): `@npmcli/arborist@9.1.3`
+
+### Dependencies
+
+* [workspace](https://github.com/npm/cli/releases/tag/arborist-v9.1.4): `@npmcli/arborist@9.1.4`
+
+### Dependencies
+
+* [workspace](https://github.com/npm/cli/releases/tag/arborist-v9.1.6): `@npmcli/arborist@9.1.6`
+
+### Dependencies
+
+* [workspace](https://github.com/npm/cli/releases/tag/arborist-v9.1.7): `@npmcli/arborist@9.1.7`
+
+### Dependencies
+
+* [workspace](https://github.com/npm/cli/releases/tag/arborist-v9.1.8): `@npmcli/arborist@9.1.8`
+
+### Dependencies
+
+* [workspace](https://github.com/npm/cli/releases/tag/arborist-v9.1.9): `@npmcli/arborist@9.1.9`
+
+### Dependencies
+
+* [workspace](https://github.com/npm/cli/releases/tag/arborist-v9.1.10): `@npmcli/arborist@9.1.10`
+
+### Dependencies
+
+* [workspace](https://github.com/npm/cli/releases/tag/arborist-v9.3.0): `@npmcli/arborist@9.3.0`
+
+### Dependencies
+
+* [workspace](https://github.com/npm/cli/releases/tag/arborist-v9.3.1): `@npmcli/arborist@9.3.1`
+
+### Dependencies
+
+* [workspace](https://github.com/npm/cli/releases/tag/arborist-v9.4.0): `@npmcli/arborist@9.4.0`
+
+### Dependencies
+
+* [workspace](https://github.com/npm/cli/releases/tag/arborist-v9.4.1): `@npmcli/arborist@9.4.1`
+
+### Dependencies
+
+* [workspace](https://github.com/npm/cli/releases/tag/arborist-v9.4.2): `@npmcli/arborist@9.4.2`
+
+### Dependencies
+
+* [workspace](https://github.com/npm/cli/releases/tag/arborist-v10.0.0-pre.2): `@npmcli/arborist@10.0.0-pre.2`
+
+### Dependencies
+
+* [workspace](https://github.com/npm/cli/releases/tag/arborist-v10.0.1): `@npmcli/arborist@10.0.1`
+
+### Dependencies
+
+* [workspace](https://github.com/npm/cli/releases/tag/arborist-v10.0.2): `@npmcli/arborist@10.0.2`
+
+## [10.0.0](https://github.com/npm/cli/compare/libnpmpack-v10.0.0-pre.2...libnpmpack-v10.0.0) (2026-07-08)
+### ⚠️ BREAKING CHANGES
+* npm pack and npm publish now error when a package's overrides apply to one or more of its bundled packages (bundledDependencies / bundleDependencies). Defining both fields is still allowed as long as no override actually targets a bundled package. To resolve the error, remove the affected entries from either overrides or the bundle.
+* `npm` now supports node `^22.22.2 || ^24.15.0 || >=26.0.0`
+* allow-git and allow-remote now default to "none"; set them to "all" (or "root") to install git or user-supplied tarball-URL dependencies.
+### Features
+* [`5b83698`](https://github.com/npm/cli/commit/5b83698a4f76e3f2962b9954dddb180fa85d4c77) [#9737](https://github.com/npm/cli/pull/9737) trigger release process (#9737) (@reggi)
+
+
+### Dependencies
+
+* [workspace](https://github.com/npm/cli/releases/tag/arborist-v10.0.0): `@npmcli/arborist@10.0.0`
+
+## [10.0.0-pre.1](https://github.com/npm/cli/compare/libnpmpack-v10.0.0-pre.0...libnpmpack-v10.0.0-pre.1) (2026-06-19)
+### ⚠️ BREAKING CHANGES
+* `npm` now supports node `^22.22.2 || ^24.15.0 || >=26.0.0`
+* allow-git and allow-remote now default to "none"; set them to "all" (or "root") to install git or user-supplied tarball-URL dependencies.
+### Features
+* [`18eb967`](https://github.com/npm/cli/commit/18eb9672dc884be4412752fb6e55e9d33c261c65) [#9559](https://github.com/npm/cli/pull/9559) bump to new node engine range (@owlstronaut)
+* [`caa3295`](https://github.com/npm/cli/commit/caa329568d32587e53f6e098f43b550dd2685034) [#9466](https://github.com/npm/cli/pull/9466) default allow-git and allow-remote to none (@owlstronaut)
+### Bug Fixes
+* [`76f8059`](https://github.com/npm/cli/commit/76f8059cd0d2482ef6c472b6c7058c51a1946d22) [#9446](https://github.com/npm/cli/pull/9446) flatten path separators in pack output filename (#9446) (@rootvector2)
+* [`c5292fa`](https://github.com/npm/cli/commit/c5292fa8a09a56b25394d393faf21e47ffb096c0) [#9422](https://github.com/npm/cli/pull/9422) use prerelease strategy without a bug (@owlstronaut)
+### Dependencies
+* [`a44c1cf`](https://github.com/npm/cli/commit/a44c1cf1635de5ecda02ed80af70f5d7360111b6) [#9559](https://github.com/npm/cli/pull/9559) `pacote@22.0.0`
+* [`d80859a`](https://github.com/npm/cli/commit/d80859a2dd97376e4ea621812b3bc7de6a218d21) [#9559](https://github.com/npm/cli/pull/9559) `npm-package-arg@14.0.0`
+* [`9d13ebf`](https://github.com/npm/cli/commit/9d13ebfc2adca5543e4797632039adaa7a318985) [#9559](https://github.com/npm/cli/pull/9559) `@npmcli/run-script@11.0.0`
+### Chores
+* [`1453954`](https://github.com/npm/cli/commit/1453954f9328a6b2480c183f9d1903ac93764915) [#9559](https://github.com/npm/cli/pull/9559) `nock@14.0.0` (@owlstronaut)
+* [`0323f2d`](https://github.com/npm/cli/commit/0323f2d74bf2e747957c74992d9431e3fca35f85) [#9559](https://github.com/npm/cli/pull/9559) template-oss-apply (@owlstronaut)
+* [`ee3d87f`](https://github.com/npm/cli/commit/ee3d87fe521bc144493b93a94d456c22eb147dbf) [#9559](https://github.com/npm/cli/pull/9559) `@npmcli/template-oss@5.1.1` (@owlstronaut)
+* [`d25a179`](https://github.com/npm/cli/commit/d25a1798f3ba8ff80437f491afc17e98ef07c77f) [#9559](https://github.com/npm/cli/pull/9559) template-oss-apply (@owlstronaut)
+* [workspace](https://github.com/npm/cli/releases/tag/arborist-v10.0.0-pre.1): `@npmcli/arborist@10.0.0-pre.1`
+
+## [10.0.0-pre.0.0](https://github.com/npm/cli/compare/libnpmpack-v9.1.5...libnpmpack-v10.0.0-pre.0.0) (2026-05-20)
+### ⚠️ BREAKING CHANGES
+* npm pack and npm publish now error when a package's overrides apply to one or more of its bundled packages (bundledDependencies / bundleDependencies). Defining both fields is still allowed as long as no override actually targets a bundled package. To resolve the error, remove the affected entries from either overrides or the bundle.
+### Bug Fixes
+* [`b1965d6`](https://github.com/npm/cli/commit/b1965d6af116dff6edcec7f70524b483d554ec4f) [#9271](https://github.com/npm/cli/pull/9271) refuse to pack when overrides apply to bundled packages (@owlstronaut)
+
+
+### Dependencies
+
+* [workspace](https://github.com/npm/cli/releases/tag/arborist-v10.0.0-pre.0.0): `@npmcli/arborist@10.0.0-pre.0.0`
+
+## [9.1.0](https://github.com/npm/cli/compare/libnpmpack-v9.0.13...libnpmpack-v9.1.0) (2026-02-04)
+### Features
+* [`f5f6cf7`](https://github.com/npm/cli/commit/f5f6cf7c9fc9315b96eb29c5c7d5ab63ad3a9122) [#8943](https://github.com/npm/cli/pull/8943) config: add --allow-git (@wraithgar)
+
+
+### Dependencies
+
+* [workspace](https://github.com/npm/cli/releases/tag/arborist-v9.2.0): `@npmcli/arborist@9.2.0`
+
+## [9.0.8](https://github.com/npm/cli/compare/libnpmpack-v9.0.7...libnpmpack-v9.0.8) (2025-09-23)
+### Dependencies
+* [`bf6b686`](https://github.com/npm/cli/commit/bf6b6862731e03002cc6fa3b86b6f090df46b009) [#8576](https://github.com/npm/cli/pull/8576) `npm-package-arg@13.0.0`
+* [`6b4c5f9`](https://github.com/npm/cli/commit/6b4c5f92865230ed9a260cd3e8486bf3991120eb) [#8576](https://github.com/npm/cli/pull/8576) `@npmcli/run-script@10.0.0`
+* [`b6bb9ae`](https://github.com/npm/cli/commit/b6bb9aea4134c47f0593c111a734eda12ec3c20d) [#8576](https://github.com/npm/cli/pull/8576) `pacote@21.0.3`
+### Chores
+* [`402a0ab`](https://github.com/npm/cli/commit/402a0ab1b4e5d1a8414dd063d0cbde0c0bc5a192) [#8576](https://github.com/npm/cli/pull/8576) `@npmcli/template-oss@4.25.1` (@wraithgar)
+* [workspace](https://github.com/npm/cli/releases/tag/arborist-v9.1.5): `@npmcli/arborist@9.1.5`
+
+## [9.0.0](https://github.com/npm/cli/compare/libnpmpack-v9.0.0-pre.1...libnpmpack-v9.0.0) (2024-12-16)
+### Features
+* [`a7bfc6d`](https://github.com/npm/cli/commit/a7bfc6df76882996ebb834dbca785fdf33b8c50d) [#7972](https://github.com/npm/cli/pull/7972) trigger release process (#7972) (@wraithgar)
+### Chores
+* [`a07f4e0`](https://github.com/npm/cli/commit/a07f4e0d921f640be6aa87736debd550ec478f89) [#7976](https://github.com/npm/cli/pull/7976) `@npmcli/template-oss@4.23.6` (@wraithgar)
+
+
+### Dependencies
+
+* [workspace](https://github.com/npm/cli/releases/tag/arborist-v9.0.0): `@npmcli/arborist@9.0.0`
+
+## [9.0.0-pre.1](https://github.com/npm/cli/compare/libnpmpack-v9.0.0-pre.0...libnpmpack-v9.0.0-pre.1) (2024-12-06)
+### ⚠️ BREAKING CHANGES
+* `bun.lockb` files are now included in the strict ignore list during packing
+### Dependencies
+* [`ca84b22`](https://github.com/npm/cli/commit/ca84b22a18806495c37ef6ee2aecd42a1c7bb7f6) [#7945](https://github.com/npm/cli/pull/7945) `pacote@21.0.0`
+* [workspace](https://github.com/npm/cli/releases/tag/arborist-v9.0.0-pre.1): `@npmcli/arborist@9.0.0-pre.1`
+
+## [9.0.0-pre.0](https://github.com/npm/cli/compare/libnpmpack-v8.0.0...libnpmpack-v9.0.0-pre.0) (2024-11-26)
+### ⚠️ BREAKING CHANGES
+* libnpmpack now supports node `^20.17.0 || >=22.9.0`
+### Bug Fixes
+* [`7f541e8`](https://github.com/npm/cli/commit/7f541e82a0b2908cc0cfef9a36b714eeab40c029) [#7815](https://github.com/npm/cli/pull/7815) make pack and exec work with git hash refs (#7815) (@milaninfy)
+* [`f7b41a3`](https://github.com/npm/cli/commit/f7b41a3ea257bf4a34e141802d7b0beaccd16f04) [#7831](https://github.com/npm/cli/pull/7831) for libnpmpack sets node engine range to `^20.17.0 || >=22.9.0` (@reggi)
+### Dependencies
+* [`7dbef6f`](https://github.com/npm/cli/commit/7dbef6f3a3ead089b1b8b9fe6b2fa25e24309000) [#7850](https://github.com/npm/cli/pull/7850) `pacote@20.0.0`
+### Chores
+* [`6edfe2f`](https://github.com/npm/cli/commit/6edfe2f3a45169b6d194ccd8d366bb8d0e09b4a5) [#7937](https://github.com/npm/cli/pull/7937) `@npmcli/template-oss@4.23.5` (@wraithgar)
+* [workspace](https://github.com/npm/cli/releases/tag/arborist-v9.0.0-pre.0): `@npmcli/arborist@9.0.0-pre.0`
+
+## [8.0.0](https://github.com/npm/cli/compare/libnpmpack-v7.0.4...libnpmpack-v8.0.0) (2024-10-03)
+### ⚠️ BREAKING CHANGES
+* `libnpmpack` now supports node `^18.17.0 || >=20.5.0`
+### Bug Fixes
+* [`1b61379`](https://github.com/npm/cli/commit/1b61379137f9253de76662bf0f9404c2ae5d033f) [#7803](https://github.com/npm/cli/pull/7803) align libnpmpack to npm 10 node engine range (@reggi)
+### Dependencies
+* [`e7ab206`](https://github.com/npm/cli/commit/e7ab206370e5fc62fefe6916e5dcc40b3e577d22) [#7803](https://github.com/npm/cli/pull/7803) update `pacote@19.0.0`
+* [`50a7bc8`](https://github.com/npm/cli/commit/50a7bc8737bb4e0a8fbc5f00b8f580512153a5bc) [#7803](https://github.com/npm/cli/pull/7803) update `npm-package-arg@12.0.0`
+* [`538a4cc`](https://github.com/npm/cli/commit/538a4cc1dd731a3643ab4477fe545db39997bcdf) [#7803](https://github.com/npm/cli/pull/7803) update `@npmcli/run-script@9.0.1`
+### Chores
+* [`2072705`](https://github.com/npm/cli/commit/2072705aa80d009dc077639adc305692f4a6c0b9) [#7803](https://github.com/npm/cli/pull/7803) update `@npmcli/eslint-config@5.0.1` (@reggi)
+* [`8035725`](https://github.com/npm/cli/commit/80357253ecd8483463cd66c783c4464c330d72df) [#7756](https://github.com/npm/cli/pull/7756) `@npmcli/template-oss@4.23.3` (@wraithgar)
+* [workspace](https://github.com/npm/cli/releases/tag/arborist-v8.0.0): `@npmcli/arborist@8.0.0`
+
 ## [7.0.3](https://github.com/npm/cli/compare/libnpmpack-v7.0.2...libnpmpack-v7.0.3) (2024-05-29)
 
 ### Bug Fixes

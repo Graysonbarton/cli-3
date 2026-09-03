@@ -20,8 +20,7 @@ ${message && '\n' + message + '\n'}
   * prune: prune the ideal tree and reify (like npm prune)
   * ideal: generate and print the ideal tree
   * actual: read and print the actual tree in node_modules
-  * virtual: read and print the virtual tree in the local shrinkwrap file
-  * shrinkwrap: load a local shrinkwrap and print its data
+  * virtual: read and print the virtual tree in the local package-lock.json
   * audit: perform a security audit on project dependencies
   * funding: query funding information in the local package tree.  A second
     positional argument after the path name can limit to a package name.
@@ -37,7 +36,7 @@ ${message && '\n' + message + '\n'}
 
   Additionally:
 
-  * --loglevel=warn|--quiet will supppress the printing of package trees
+  * --loglevel=warn|--quiet will suppress the printing of package trees
   * --logfile <file|bool> will output logs to a file
   * --timing will show timing information
   * Instead of 'npm install <pkg>', use 'arborist reify --add=<pkg>'.

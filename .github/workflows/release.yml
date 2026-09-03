@@ -31,17 +31,17 @@ jobs:
         shell: bash
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Setup Git User
         run: |
           git config --global user.email "npm-cli+bot@github.com"
           git config --global user.name "npm CLI robot"
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         id: node
         with:
-          node-version: 22.x
-          check-latest: contains('22.x', '.x')
+          node-version: 26.x
+          check-latest: contains('26.x', '.x')
           cache: npm
       - name: Check Git Status
         run: node scripts/git-dirty.js
@@ -107,7 +107,7 @@ jobs:
         shell: bash
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           ref: ${{ needs.release.outputs.pr-branch }}
@@ -116,11 +116,11 @@ jobs:
           git config --global user.email "npm-cli+bot@github.com"
           git config --global user.name "npm CLI robot"
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         id: node
         with:
-          node-version: 22.x
-          check-latest: contains('22.x', '.x')
+          node-version: 26.x
+          check-latest: contains('26.x', '.x')
           cache: npm
       - name: Check Git Status
         run: node scripts/git-dirty.js
@@ -140,7 +140,7 @@ jobs:
       - name: Run Post Pull Request Actions
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: node . run rp-pull-request --ignore-scripts -ws -iwr --if-present -- --pr="${{ needs.release.outputs.pr-number }}" --commentId="${{ needs.release.outputs.comment-id }}"
+        run: node . run rp-pull-request --ignore-scripts --workspaces --include-workspace-root --if-present -- --pr="${{ needs.release.outputs.pr-number }}" --commentId="${{ needs.release.outputs.comment-id }}"
       - name: Commit
         id: commit
         env:

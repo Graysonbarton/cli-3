@@ -15,6 +15,13 @@ const {
   mkdir,
 } = require('node:fs/promises')
 
+// TODO global-prefix and local-prefix are set by lib/set-envs.js.  This may not be the best way to persist those, if we even want to persist them (see set-envs.js)
+const internalEnv = [
+  'npm-version',
+  'global-prefix',
+  'local-prefix',
+]
+
 const fileExists = (...p) => stat(resolve(...p))
   .then((st) => st.isFile())
   .catch(() => false)
@@ -52,6 +59,11 @@ class Config {
   #flatten
   // populated the first time we flatten the object
   #flatOptions = null
+  #warnings = []
+  // Unknown configs collected during load(), aggregated and thrown by `BaseCommand.validateCli` once command-specific definitions are known.
+  // Entries: { where, key, baseKey, source }. `baseKey` is non-null only for scoped keys (e.g. `<nerfdart>:foo`) and holds the trailing segment.
+  // `env` and `publishConfig` entries warn instead of error.
+  #unknownConfigs = []
 
   static get typeDefs () {
     return typeDefs
@@ -61,6 +73,7 @@ class Config {
     definitions,
     shorthands,
     flatten,
+    nerfDarts = [],
     npmPath,
 
     // options just to override in tests, mostly
@@ -70,19 +83,13 @@ class Config {
     execPath = process.execPath,
     cwd = process.cwd(),
     excludeNpmCwd = false,
+    warn = true,
   }) {
-    // turn the definitions into nopt's weirdo syntax
+    this.nerfDarts = nerfDarts
     this.definitions = definitions
-    const types = {}
-    const defaults = {}
-    this.deprecated = {}
-    for (const [key, def] of Object.entries(definitions)) {
-      defaults[key] = def.default
-      types[key] = def.type
-      if (def.deprecated) {
-        this.deprecated[key] = def.deprecated.trim().replace(/\n +/, '\n')
-      }
-    }
+    // turn the definitions into nopt's weirdo syntax
+    const { types, defaults, deprecated } = getTypesFromDefinitions(definitions)
+    this.deprecated = deprecated
 
     this.#flatten = flatten
     this.types = types
@@ -123,13 +130,20 @@ class Config {
 
     this.sources = new Map([])
 
-    this.list = []
     for (const { data } of this.data.values()) {
       this.list.unshift(data)
     }
-    Object.freeze(this.list)
 
     this.#loaded = false
+    this.warn = warn
+  }
+
+  get list () {
+    const list = []
+    for (const { data } of this.data.values()) {
+      list.unshift(data)
+    }
+    return list
   }
 
   get loaded () {
@@ -272,6 +286,7 @@ class Config {
     }
 
     try {
+      // This does not have an actual definition because this is not user definable
       defaultsObject['npm-version'] = require(join(this.npmPath, 'package.json')).version
     } catch {
       // in some weird state where the passed in npmPath does not have a package.json
@@ -293,6 +308,24 @@ class Config {
       get: () => resolve(this.#get('prefix'), 'etc/npmrc'),
       set (value) {
         Object.defineProperty(data, 'globalconfig', {
+          value,
+          configurable: true,
+          writable: true,
+          enumerable: true,
+        })
+      },
+      configurable: true,
+      enumerable: true,
+    })
+
+    // like globalconfig, the global-ignore-file default is computed from
+    // the current prefix. since prefix may be overridden after defaults
+    // load (via cli, env, or userconfig), expose a getter and only freeze
+    // to a value once explicitly set.
+    Object.defineProperty(data, 'global-ignore-file', {
+      get: () => resolve(this.#get('prefix'), 'etc/npmignore'),
+      set (value) {
+        Object.defineProperty(data, 'global-ignore-file', {
           value,
           configurable: true,
           writable: true,
@@ -346,10 +379,21 @@ class Config {
   }
 
   loadCLI () {
+    for (const s of Object.keys(this.shorthands)) {
+      if (s.length > 1 && this.argv.includes(`-${s}`)) {
+        throw Object.assign(
+          new Error(`-${s} is not a valid single-hyphen cli flag. Did you mean --${s}?`),
+          { code: 'EUNKNOWNCONFIG' }
+        )
+      }
+    }
     nopt.invalidHandler = (k, val, type) =>
       this.invalidHandler(k, val, type, 'command line options', 'cli')
+    nopt.unknownHandler = (k, next) => this.unknownHandler(k, next)
+    nopt.abbrevHandler = this.abbrevHandler
     const conf = nopt(this.types, this.shorthands, this.argv)
     nopt.invalidHandler = null
+    nopt.unknownHandler = null
     this.parsedArgv = conf.argv
     delete conf.argv
     this.#loadObject(conf, 'cli', 'command line options')
@@ -412,6 +456,32 @@ class Config {
               }
             }
           }
+
+          // Top-level `email`, `certfile`, and `keyfile` must be in nerfdart form.
+          // certfile/keyfile are an mTLS pair: drop a lone one rather than migrating it.
+          if (this.get('email', entryWhere)) {
+            authProblems.push({
+              action: 'rename',
+              from: 'email',
+              to: `${nerfedReg}:email`,
+              where: entryWhere,
+            })
+          }
+          for (const key of ['certfile', 'keyfile']) {
+            if (this.get(key, entryWhere)) {
+              const pair = key === 'certfile' ? 'keyfile' : 'certfile'
+              if (!this.get(pair, entryWhere)) {
+                authProblems.push({ action: 'delete', key, where: entryWhere })
+              } else {
+                authProblems.push({
+                  action: 'rename',
+                  from: key,
+                  to: `${nerfedReg}:${key}`,
+                  where: entryWhere,
+                })
+              }
+            }
+          }
         }
       }
 
@@ -462,10 +532,15 @@ class Config {
       if (problem.action === 'delete') {
         this.delete(problem.key, problem.where)
       } else if (problem.action === 'rename') {
-        const raw = this.data.get(problem.where).raw?.[problem.from]
-        const calculated = this.get(problem.from, problem.where)
-        this.set(problem.to, raw || calculated, problem.where)
-        this.delete(problem.from, problem.where)
+        // If the destination already exists, drop the source rather than clobber.
+        if (this.find(problem.to) !== null) {
+          this.delete(problem.from, problem.where)
+        } else {
+          const raw = this.data.get(problem.where).raw?.[problem.from]
+          const calculated = this.get(problem.from, problem.where)
+          this.set(problem.to, raw || calculated, problem.where)
+          this.delete(problem.from, problem.where)
+        }
       }
     }
   }
@@ -515,6 +590,19 @@ class Config {
     log.warn('invalid config', msg, desc)
   }
 
+  abbrevHandler (short, long) {
+    throw Object.assign(
+      new Error(`Invalid abbreviated flag "--${short}". Did you mean "--${long}"?`),
+      { code: 'EUNKNOWNCONFIG' }
+    )
+  }
+
+  unknownHandler (key, next) {
+    if (next) {
+      this.queueWarning(`unknown:${next}`, `"${next}" is being parsed as a normal command line argument.`)
+    }
+  }
+
   #getOneOfKeywords (mustBe, typeDesc) {
     let keyword
     if (mustBe.length === 1 && typeDesc.includes(Array)) {
@@ -553,7 +641,7 @@ class Config {
       }
     } else {
       conf.raw = obj
-      for (const [key, value] of Object.entries(obj)) {
+      outer: for (const [key, value] of Object.entries(obj)) {
         const k = envReplace(key, this.env)
         const v = this.parseField(value, k)
         if (where !== 'default') {
@@ -561,18 +649,80 @@ class Config {
           if (this.definitions[key]?.exclusive) {
             for (const exclusive of this.definitions[key].exclusive) {
               if (!this.isDefault(exclusive)) {
-                throw new TypeError(`--${key} can not be provided when using --${exclusive}`)
+                // when loading from env, skip only if sibling was explicitly set via CLI
+                if (where === 'env') {
+                  const cliData = this.data.get('cli').data
+                  if (Object.hasOwn(cliData, exclusive)) {
+                    continue outer
+                  }
+                }
+                throw new TypeError(`--${key} cannot be provided when using --${exclusive}`)
               }
             }
           }
+        }
+        if (where !== 'default' || key === 'npm-version') {
+          this.checkUnknown(where, key, source)
         }
         conf.data[k] = v
       }
     }
   }
 
+  checkUnknown (where, key, source = null) {
+    if (this.definitions[key]) {
+      return
+    }
+    if (internalEnv.includes(key)) {
+      return
+    }
+    const scoped = key.includes(':')
+    let baseKey = null
+    if (scoped) {
+      baseKey = key.split(':').pop()
+      if (this.definitions[baseKey] || this.nerfDarts.includes(baseKey)) {
+        return
+      }
+    }
+
+    const entry = { where, key, baseKey, source: source ?? this.data.get(where)?.source ?? null }
+    this.#unknownConfigs.push(entry)
+
+    // publishConfig is handled by publish/unpublish/config commands and is out of scope for the npm 12 breaking change (tracked separately).
+    // Keep it as a queued warning so existing behavior is preserved.
+    if (where === 'publishConfig') {
+      const hint = ' See `npm help npmrc` for supported config options.'
+      const msg = scoped
+        ? `Unknown ${where} config "${baseKey}" (${key}). This will stop working in the next major version of npm.${hint}`
+        : `Unknown ${where} config "${key}". This will stop working in the next major version of npm.${hint}`
+      this.queueWarning(scoped ? baseKey : key, msg)
+      return
+    }
+
+    // env unknowns are an explicit carve-out for npm 12.
+    // setEnvs() exports npm_config_* for child processes and loadEnv() re-ingests them; erroring here would break npm-invoked-npm and many CI setups.
+    // Keep as warning. Planned to error in npm 13.
+    if (where === 'env') {
+      const hint = ' See `npm help npmrc` for supported config options.'
+      const msg = scoped
+        ? `Unknown ${where} config "${baseKey}" (${key}). This will error in a future major version of npm.${hint}`
+        : `Unknown ${where} config "${key}". This will error in a future major version of npm.${hint}`
+      this.queueWarning(scoped ? baseKey : key, msg)
+    }
+
+    // cli + file sources (builtin/project/user/global): collected only.
+    // Aggregated and thrown by `BaseCommand.validateCli` after subcommand flag resolution so command-specific flags can be allow-listed first.
+  }
+
+  // Returns unknown-config entries for a given source ('cli', 'builtin', 'project', 'user', 'global') or all entries except `env` and `publishConfig` when omitted.
+  getUnknownConfigs (where) {
+    if (where) {
+      return this.#unknownConfigs.filter(u => u.where === where)
+    }
+    return this.#unknownConfigs.filter(u => u.where !== 'env' && u.where !== 'publishConfig')
+  }
+
   #checkDeprecated (key) {
-    // XXX(npm9+) make this throw an error
     if (this.deprecated[key]) {
       log.warn('config', key, this.deprecated[key])
     }
@@ -626,7 +776,7 @@ class Config {
     // if we're in the ~ directory, and there happens to be a node_modules
     // folder (which is not TOO uncommon, it turns out), then we can end
     // up loading the "project" config where the "userconfig" will be,
-    // which causes some calamaties.  So, we only load project config if
+    // which causes some calamities.  So, we only load project config if
     // it doesn't match what the userconfig will be.
     if (projectFile !== this.#get('userconfig')) {
       return this.#loadFile(projectFile, 'project')
@@ -725,13 +875,8 @@ class Config {
     conf[_loadError] = null
 
     if (where === 'user') {
-      // if email is nerfed, then we want to de-nerf it
-      const nerfed = nerfDart(this.get('registry'))
-      const email = this.get(`${nerfed}:email`, 'user')
-      if (email) {
-        this.delete(`${nerfed}:email`, 'user')
-        this.set('email', email, 'user')
-      }
+      // Historically, save('user') would "de-nerf" email — move a scoped `<nerfdart>:email` into a top-level `email` key — because npm used to warn on nerfed email.
+      // In npm 12 the top-level `email` key is a hard error, so we keep email in its scoped form.
     }
 
     // We need the actual raw data before we called parseField so that we are
@@ -759,11 +904,7 @@ class Config {
       this.delete(`_auth`, level)
       this.delete(`_password`, level)
       this.delete(`username`, level)
-      // de-nerf email if it's nerfed to the default registry
-      const email = this.get(`${nerfed}:email`, level)
-      if (email) {
-        this.set('email', email, level)
-      }
+      // In npm 12, top-level `email` is a hard error — don't de-nerf it here either.
     }
     this.delete(`${nerfed}:_authToken`, level)
     this.delete(`${nerfed}:_auth`, level)
@@ -782,7 +923,9 @@ class Config {
     // send auth if we have it, only to the URIs under the nerf dart.
     this.delete(`${nerfed}:always-auth`, 'user')
 
-    this.delete(`${nerfed}:email`, 'user')
+    // NOTE: we intentionally do NOT delete `${nerfed}:email` here anymore.
+    // In npm 11 and earlier, top-level `email` was the canonical form (with getCredentialsByURI copying scoped email up to top-level on read), and setCredentialsByURI cleared the scoped copy to enforce that invariant.
+    // In npm 12 top-level `email` is a hard error and the scoped nerfdart form is canonical, so preserve any existing scoped email across login.
     if (certfile && keyfile) {
       this.set(`${nerfed}:certfile`, certfile, 'user')
       this.set(`${nerfed}:keyfile`, keyfile, 'user')
@@ -813,17 +956,13 @@ class Config {
   // this has to be a bit more complicated to support legacy data of all forms
   getCredentialsByURI (uri) {
     const nerfed = nerfDart(uri)
-    const def = nerfDart(this.get('registry'))
     const creds = {}
 
-    // email is handled differently, it used to always be nerfed and now it never should be
-    // if it's set nerfed to the default registry, then we copy it to the unnerfed key
+    // email is handled differently, it used to always be nerfed and now it never should be.
+    // In npm 12 the top-level `email` key is a hard error, so we stop copying scoped email back to the top-level here.
     // TODO: evaluate removing 'email' from the credentials object returned here
     const email = this.get(`${nerfed}:email`) || this.get('email')
     if (email) {
-      if (nerfed === def) {
-        this.set('email', email, 'user')
-      }
       creds.email = email
     }
 
@@ -870,6 +1009,35 @@ class Config {
   // set EDITOR and HOME.
   setEnvs () {
     setEnvs(this)
+  }
+
+  removeWarning (key) {
+    this.#warnings = this.#warnings.filter(w => w.type !== key)
+  }
+
+  getUnknownPositionals () {
+    return this.#warnings
+      .filter(w => w.type.startsWith('unknown:'))
+      .map(w => w.type.slice('unknown:'.length))
+  }
+
+  removeUnknownPositional (value) {
+    this.removeWarning(`unknown:${value}`)
+  }
+
+  queueWarning (type, ...args) {
+    if (!this.warn) {
+      this.#warnings.push({ type, args })
+    } else {
+      log.warn(...args)
+    }
+  }
+
+  logWarnings () {
+    for (const warning of this.#warnings) {
+      log.warn(...warning.args)
+    }
+    this.#warnings = []
   }
 }
 
@@ -928,4 +1096,21 @@ class ConfigData {
   }
 }
 
+const getTypesFromDefinitions = (definitions) => {
+  const types = {}
+  const defaults = {}
+  const deprecated = {}
+
+  for (const [key, def] of Object.entries(definitions)) {
+    defaults[key] = def.default
+    types[key] = def.type
+    if (def.deprecated) {
+      deprecated[key] = def.deprecated.trim().replace(/\n +/, '\n')
+    }
+  }
+
+  return { types, defaults, deprecated }
+}
+
 module.exports = Config
+module.exports.getTypesFromDefinitions = getTypesFromDefinitions

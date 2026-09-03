@@ -5,6 +5,22 @@
  * Make sure to inspect the output below.  Do not ignore changes!
  */
 'use strict'
+exports[`test/lib/commands/view.js TAP allow-git=root, package with multiple dist‑tags and no time > must match snapshot 1`] = `
+
+[4m[36mgray@1.1.0[39m[24m | [31mProprietary[39m | deps: [36mnone[39m | versions: [36m1[39m
+
+dist
+.tarball: [34mhttp://gray/1.1.0.tgz[39m
+.shasum: [32mb[39m
+
+dist-tags:
+[34mlatest[39m: 1.1.0
+[34mstable[39m: 1.1.0
+[34mold[39m: 1.0.0
+[34mbeta[39m: 1.2.0-beta
+[34malpha[39m: 1.2.0-alpha
+`
+
 exports[`test/lib/commands/view.js TAP deprecated package with license, bugs, repository and other fields > must match snapshot 1`] = `
 
 [4m[36mgreen@1.0.0[39m[24m | [32mACME[39m | deps: [36m2[39m | versions: [36m2[39m
@@ -23,8 +39,7 @@ dist
 .unpackedSize: [34m1.0 GB[39m
 
 dependencies:
-[34mred[39m: 1.0.0
-[34myellow[39m: 1.0.0
+[34mred[39m: 1.0.0, [34myellow[39m: 1.0.0
 
 maintainers:
 - [34mclaudia[39m <[2mc@yellow.com[22m>
@@ -52,8 +67,7 @@ dist
 .unpackedSize: [34m1.0 GB[39m
 
 dependencies:
-[34mred[39m: 1.0.0
-[34myellow[39m: 1.0.0
+[34mred[39m: 1.0.0, [34myellow[39m: 1.0.0
 
 maintainers:
 - [34mclaudia[39m <[2mc@yellow.com[22m>
@@ -81,8 +95,7 @@ dist
 .unpackedSize: [34m1.0 GB[39m
 
 dependencies:
-[34mred[39m: 1.0.0
-[34myellow[39m: 1.0.0
+[34mred[39m: 1.0.0, [34myellow[39m: 1.0.0
 
 maintainers:
 - [34mclaudia[39m <[2mc@yellow.com[22m>
@@ -102,6 +115,11 @@ dist
 
 dist-tags:
 [34mlatest[39m: 1.0.0
+[34mz[39m: 1.0.0
+[34my[39m: 1.0.0
+[34mv1[39m: 1.0.0
+[34mprev[39m: 1.0.0
+[2m(...and 10 more.)[22m
 
 published {TIME} ago[39m
 `
@@ -116,6 +134,11 @@ dist
 
 dist-tags:
 [34mlatest[39m: 1.0.0
+[34mz[39m: 1.0.0
+[34my[39m: 1.0.0
+[34mv1[39m: 1.0.0
+[34mprev[39m: 1.0.0
+[2m(...and 10 more.)[22m
 
 published {TIME} ago[39m
 `
@@ -130,6 +153,11 @@ dist
 
 dist-tags:
 [34mlatest[39m: 1.0.0
+[34mz[39m: 1.0.0
+[34my[39m: 1.0.0
+[34mv1[39m: 1.0.0
+[34mprev[39m: 1.0.0
+[2m(...and 10 more.)[22m
 
 published {TIME} ago[39m
 `
@@ -213,30 +241,7 @@ dist
 .unpackedSize: [34m1 B[39m
 
 dependencies:
-[34m0[39m: 1.0.0
-[34m10[39m: 1.0.0
-[34m11[39m: 1.0.0
-[34m12[39m: 1.0.0
-[34m13[39m: 1.0.0
-[34m14[39m: 1.0.0
-[34m15[39m: 1.0.0
-[34m16[39m: 1.0.0
-[34m17[39m: 1.0.0
-[34m18[39m: 1.0.0
-[34m19[39m: 1.0.0
-[34m1[39m: 1.0.0
-[34m20[39m: 1.0.0
-[34m21[39m: 1.0.0
-[34m22[39m: 1.0.0
-[34m23[39m: 1.0.0
-[34m2[39m: 1.0.0
-[34m3[39m: 1.0.0
-[34m4[39m: 1.0.0
-[34m5[39m: 1.0.0
-[34m6[39m: 1.0.0
-[34m7[39m: 1.0.0
-[34m8[39m: 1.0.0
-[34m9[39m: 1.0.0
+[34m0[39m: 1.0.0, [34m1[39m: 1.0.0, [34m2[39m: 1.0.0, [34m3[39m: 1.0.0, [34m4[39m: 1.0.0, [34m5[39m: 1.0.0, [34m6[39m: 1.0.0, [34m7[39m: 1.0.0, [34m8[39m: 1.0.0, [34m9[39m: 1.0.0, [34m10[39m: 1.0.0, [34m11[39m: 1.0.0, [34m12[39m: 1.0.0, [34m13[39m: 1.0.0, [34m14[39m: 1.0.0, [34m15[39m: 1.0.0, [34m16[39m: 1.0.0, [34m17[39m: 1.0.0, [34m18[39m: 1.0.0, [34m19[39m: 1.0.0, [34m20[39m: 1.0.0, [34m21[39m: 1.0.0, [34m22[39m: 1.0.0, [34m23[39m: 1.0.0
 [2m(...and 1 more.)[22m
 
 dist-tags:
@@ -269,6 +274,11 @@ dist
 
 dist-tags:
 [34mlatest[39m: 1.0.0
+[34mz[39m: 1.0.0
+[34my[39m: 1.0.0
+[34mv1[39m: 1.0.0
+[34mprev[39m: 1.0.0
+[2m(...and 10 more.)[22m
 
 published {TIME} ago[39m
 `
@@ -283,6 +293,11 @@ dist
 
 dist-tags:
 [34mlatest[39m: 1.0.0
+[34mz[39m: 1.0.0
+[34my[39m: 1.0.0
+[34mv1[39m: 1.0.0
+[34mprev[39m: 1.0.0
+[2m(...and 10 more.)[22m
 
 published {TIME} ago[39m
 
@@ -296,27 +311,34 @@ dist
 
 dist-tags:
 [34mlatest[39m: 1.0.0
+[34mz[39m: 1.0.0
+[34my[39m: 1.0.0
+[34mv1[39m: 1.0.0
+[34mprev[39m: 1.0.0
+[2m(...and 10 more.)[22m
 
-published [36mover a year from now[39m
+published {TIME} ago[39m
 `
 
 exports[`test/lib/commands/view.js TAP package with single version full json > must match snapshot 1`] = `
-{
-  "_id": "single-version",
-  "name": "single-version",
-  "dist-tags": {
-    "latest": "1.0.0"
-  },
-  "versions": [
-    "1.0.0"
-  ],
-  "version": "1.0.0",
-  "dist": {
-    "shasum": "123",
-    "tarball": "http://hm.single-version.com/1.0.0.tgz",
-    "fileCount": 1
+[
+  {
+    "_id": "single-version",
+    "name": "single-version",
+    "dist-tags": {
+      "latest": "1.0.0"
+    },
+    "versions": [
+      "1.0.0"
+    ],
+    "version": "1.0.0",
+    "dist": {
+      "shasum": "123",
+      "tarball": "http://hm.single-version.com/1.0.0.tgz",
+      "fileCount": 1
+    }
   }
-}
+]
 `
 
 exports[`test/lib/commands/view.js TAP specific field names array field - 1 element > must match snapshot 1`] = `
@@ -381,8 +403,7 @@ dist
 .unpackedSize: [34m1.0 GB[39m
 
 dependencies:
-[34mred[39m: 1.0.0
-[34myellow[39m: 1.0.0
+[34mred[39m: 1.0.0, [34myellow[39m: 1.0.0
 
 maintainers:
 - [34mclaudia[39m <[2mc@yellow.com[22m>
@@ -396,60 +417,62 @@ error [94m404[39m 404
 
 exports[`test/lib/commands/view.js TAP workspaces 404 workspaces json > must match snapshot 1`] = `
 {
-  "green": {
-    "_id": "green",
-    "name": "green",
-    "dist-tags": {
-      "latest": "1.0.0"
-    },
-    "maintainers": [
-      {
-        "name": "claudia",
-        "email": "c@yellow.com",
-        "twitter": "cyellow"
+  "green": [
+    {
+      "_id": "green",
+      "name": "green",
+      "dist-tags": {
+        "latest": "1.0.0"
       },
-      {
-        "name": "isaacs",
-        "email": "i@yellow.com",
-        "twitter": "iyellow"
+      "maintainers": [
+        {
+          "name": "claudia",
+          "email": "c@yellow.com",
+          "twitter": "cyellow"
+        },
+        {
+          "name": "isaacs",
+          "email": "i@yellow.com",
+          "twitter": "iyellow"
+        }
+      ],
+      "keywords": [
+        "colors",
+        "green",
+        "crayola"
+      ],
+      "versions": [
+        "1.0.0",
+        "1.0.1"
+      ],
+      "version": "1.0.0",
+      "description": "green is a very important color",
+      "bugs": {
+        "url": "http://bugs.green.com"
+      },
+      "deprecated": true,
+      "repository": {
+        "url": "http://repository.green.com"
+      },
+      "license": {
+        "type": "ACME"
+      },
+      "bin": {
+        "green": "bin/green.js"
+      },
+      "dependencies": {
+        "red": "1.0.0",
+        "yellow": "1.0.0"
+      },
+      "dist": {
+        "shasum": "123",
+        "tarball": "http://hm.green.com/1.0.0.tgz",
+        "integrity": "---",
+        "fileCount": 1,
+        "unpackedSize": 1000000000
       }
-    ],
-    "keywords": [
-      "colors",
-      "green",
-      "crayola"
-    ],
-    "versions": [
-      "1.0.0",
-      "1.0.1"
-    ],
-    "version": "1.0.0",
-    "description": "green is a very important color",
-    "bugs": {
-      "url": "http://bugs.green.com"
-    },
-    "deprecated": true,
-    "repository": {
-      "url": "http://repository.green.com"
-    },
-    "license": {
-      "type": "ACME"
-    },
-    "bin": {
-      "green": "bin/green.js"
-    },
-    "dependencies": {
-      "red": "1.0.0",
-      "yellow": "1.0.0"
-    },
-    "dist": {
-      "shasum": "123",
-      "tarball": "http://hm.green.com/1.0.0.tgz",
-      "integrity": "---",
-      "fileCount": 1,
-      "unpackedSize": 1000000000
     }
-  },
+  ],
   "error": {
     "missing-package": {
       "code": "E404",
@@ -491,8 +514,7 @@ dist
 .unpackedSize: [34m1.0 GB[39m
 
 dependencies:
-[34mred[39m: 1.0.0
-[34myellow[39m: 1.0.0
+[34mred[39m: 1.0.0, [34myellow[39m: 1.0.0
 
 maintainers:
 - [34mclaudia[39m <[2mc@yellow.com[22m>
@@ -512,80 +534,84 @@ error Unknown error
 
 exports[`test/lib/commands/view.js TAP workspaces all workspaces --json > must match snapshot 1`] = `
 {
-  "green": {
-    "_id": "green",
-    "name": "green",
-    "dist-tags": {
-      "latest": "1.0.0"
-    },
-    "maintainers": [
-      {
-        "name": "claudia",
-        "email": "c@yellow.com",
-        "twitter": "cyellow"
+  "green": [
+    {
+      "_id": "green",
+      "name": "green",
+      "dist-tags": {
+        "latest": "1.0.0"
       },
-      {
-        "name": "isaacs",
-        "email": "i@yellow.com",
-        "twitter": "iyellow"
+      "maintainers": [
+        {
+          "name": "claudia",
+          "email": "c@yellow.com",
+          "twitter": "cyellow"
+        },
+        {
+          "name": "isaacs",
+          "email": "i@yellow.com",
+          "twitter": "iyellow"
+        }
+      ],
+      "keywords": [
+        "colors",
+        "green",
+        "crayola"
+      ],
+      "versions": [
+        "1.0.0",
+        "1.0.1"
+      ],
+      "version": "1.0.0",
+      "description": "green is a very important color",
+      "bugs": {
+        "url": "http://bugs.green.com"
+      },
+      "deprecated": true,
+      "repository": {
+        "url": "http://repository.green.com"
+      },
+      "license": {
+        "type": "ACME"
+      },
+      "bin": {
+        "green": "bin/green.js"
+      },
+      "dependencies": {
+        "red": "1.0.0",
+        "yellow": "1.0.0"
+      },
+      "dist": {
+        "shasum": "123",
+        "tarball": "http://hm.green.com/1.0.0.tgz",
+        "integrity": "---",
+        "fileCount": 1,
+        "unpackedSize": 1000000000
       }
-    ],
-    "keywords": [
-      "colors",
-      "green",
-      "crayola"
-    ],
-    "versions": [
-      "1.0.0",
-      "1.0.1"
-    ],
-    "version": "1.0.0",
-    "description": "green is a very important color",
-    "bugs": {
-      "url": "http://bugs.green.com"
-    },
-    "deprecated": true,
-    "repository": {
-      "url": "http://repository.green.com"
-    },
-    "license": {
-      "type": "ACME"
-    },
-    "bin": {
-      "green": "bin/green.js"
-    },
-    "dependencies": {
-      "red": "1.0.0",
-      "yellow": "1.0.0"
-    },
-    "dist": {
-      "shasum": "123",
-      "tarball": "http://hm.green.com/1.0.0.tgz",
-      "integrity": "---",
-      "fileCount": 1,
-      "unpackedSize": 1000000000
     }
-  },
-  "orange": {
-    "name": "orange",
-    "dist-tags": {
-      "latest": "1.0.0"
-    },
-    "versions": [
-      "1.0.0",
-      "1.0.1"
-    ],
-    "version": "1.0.0",
-    "homepage": "http://hm.orange.com",
-    "license": {},
-    "dist": {
-      "shasum": "123",
-      "tarball": "http://hm.orange.com/1.0.0.tgz",
-      "integrity": "---",
-      "fileCount": 1,
-      "unpackedSize": 1
+  ],
+  "orange": [
+    {
+      "name": "orange",
+      "dist-tags": {
+        "latest": "1.0.0"
+      },
+      "versions": [
+        "1.0.0",
+        "1.0.1"
+      ],
+      "version": "1.0.0",
+      "homepage": "http://hm.orange.com",
+      "license": {},
+      "dist": {
+        "shasum": "123",
+        "tarball": "http://hm.orange.com/1.0.0.tgz",
+        "integrity": "---",
+        "fileCount": 1,
+        "unpackedSize": 1
+      }
     }
-  }
+  ]
 }
 `
 
@@ -607,8 +633,7 @@ dist
 .unpackedSize: [34m1.0 GB[39m
 
 dependencies:
-[34mred[39m: 1.0.0
-[34myellow[39m: 1.0.0
+[34mred[39m: 1.0.0, [34myellow[39m: 1.0.0
 
 maintainers:
 - [34mclaudia[39m <[2mc@yellow.com[22m>
@@ -641,8 +666,12 @@ orange:
 
 exports[`test/lib/commands/view.js TAP workspaces all workspaces single field --json > must match snapshot 1`] = `
 {
-  "green": "green",
-  "orange": "orange"
+  "green": [
+    "green"
+  ],
+  "orange": [
+    "orange"
+  ]
 }
 `
 
@@ -671,8 +700,7 @@ dist
 .unpackedSize: [34m1.0 GB[39m
 
 dependencies:
-[34mred[39m: 1.0.0
-[34myellow[39m: 1.0.0
+[34mred[39m: 1.0.0, [34myellow[39m: 1.0.0
 
 maintainers:
 - [34mclaudia[39m <[2mc@yellow.com[22m>
@@ -704,59 +732,61 @@ Array [
 
 exports[`test/lib/commands/view.js TAP workspaces single workspace --json > must match snapshot 1`] = `
 {
-  "green": {
-    "_id": "green",
-    "name": "green",
-    "dist-tags": {
-      "latest": "1.0.0"
-    },
-    "maintainers": [
-      {
-        "name": "claudia",
-        "email": "c@yellow.com",
-        "twitter": "cyellow"
+  "green": [
+    {
+      "_id": "green",
+      "name": "green",
+      "dist-tags": {
+        "latest": "1.0.0"
       },
-      {
-        "name": "isaacs",
-        "email": "i@yellow.com",
-        "twitter": "iyellow"
+      "maintainers": [
+        {
+          "name": "claudia",
+          "email": "c@yellow.com",
+          "twitter": "cyellow"
+        },
+        {
+          "name": "isaacs",
+          "email": "i@yellow.com",
+          "twitter": "iyellow"
+        }
+      ],
+      "keywords": [
+        "colors",
+        "green",
+        "crayola"
+      ],
+      "versions": [
+        "1.0.0",
+        "1.0.1"
+      ],
+      "version": "1.0.0",
+      "description": "green is a very important color",
+      "bugs": {
+        "url": "http://bugs.green.com"
+      },
+      "deprecated": true,
+      "repository": {
+        "url": "http://repository.green.com"
+      },
+      "license": {
+        "type": "ACME"
+      },
+      "bin": {
+        "green": "bin/green.js"
+      },
+      "dependencies": {
+        "red": "1.0.0",
+        "yellow": "1.0.0"
+      },
+      "dist": {
+        "shasum": "123",
+        "tarball": "http://hm.green.com/1.0.0.tgz",
+        "integrity": "---",
+        "fileCount": 1,
+        "unpackedSize": 1000000000
       }
-    ],
-    "keywords": [
-      "colors",
-      "green",
-      "crayola"
-    ],
-    "versions": [
-      "1.0.0",
-      "1.0.1"
-    ],
-    "version": "1.0.0",
-    "description": "green is a very important color",
-    "bugs": {
-      "url": "http://bugs.green.com"
-    },
-    "deprecated": true,
-    "repository": {
-      "url": "http://repository.green.com"
-    },
-    "license": {
-      "type": "ACME"
-    },
-    "bin": {
-      "green": "bin/green.js"
-    },
-    "dependencies": {
-      "red": "1.0.0",
-      "yellow": "1.0.0"
-    },
-    "dist": {
-      "shasum": "123",
-      "tarball": "http://hm.green.com/1.0.0.tgz",
-      "integrity": "---",
-      "fileCount": 1,
-      "unpackedSize": 1000000000
     }
-  }
+  ]
 }
 `

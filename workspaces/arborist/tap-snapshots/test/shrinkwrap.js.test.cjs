@@ -390,6 +390,9 @@ Object {
       "funding": Object {
         "url": "https://example.com/",
       },
+      "libc": Array [
+        "glibc",
+      ],
       "os": Array [
         "any",
         "!win32",
@@ -547,6 +550,9 @@ Object {
   "funding": Object {
     "url": "https://example.com/",
   },
+  "libc": Array [
+    "glibc",
+  ],
   "os": Array [
     "any",
     "!win32",
@@ -941,7 +947,7 @@ Object {
       "version": "1.0.0",
     },
     "node_modules/full-git-url": Object {
-      "resolved": "git+ssh://git@github.com/isaacs/abbrev-js.git#a9ee72ebc8fe3975f1b0c7aeb3a8f2a806a432eb",
+      "resolved": "git+https://github.com/isaacs/abbrev-js.git#a9ee72ebc8fe3975f1b0c7aeb3a8f2a806a432eb",
     },
     "node_modules/ghshort": Object {
       "resolved": "git+ssh://git@github.com/isaacs/abbrev-js.git#a9ee72ebc8fe3975f1b0c7aeb3a8f2a806a432eb",
@@ -1686,7 +1692,7 @@ Object {
     "node_modules/full-git-url": Object {
       "license": "ISC",
       "name": "abbrev",
-      "resolved": "git+ssh://git@github.com/isaacs/abbrev-js.git#a9ee72ebc8fe3975f1b0c7aeb3a8f2a806a432eb",
+      "resolved": "git+https://github.com/isaacs/abbrev-js.git#a9ee72ebc8fe3975f1b0c7aeb3a8f2a806a432eb",
       "version": "1.1.1",
     },
     "node_modules/ghshort": Object {
@@ -2726,14 +2732,6 @@ Object {
   "packages": Object {
     "": Object {
       "name": "example",
-      "version": "1.0.0",
-    },
-    "../bar": Object {
-      "extraneous": true,
-      "version": "1.0.0",
-    },
-    "../linked-node-modules/foo": Object {
-      "extraneous": true,
       "version": "1.0.0",
     },
     "node_modules/bar": Object {
@@ -9749,16 +9747,6 @@ Object {
     "": Object {
       "name": "workspace3",
     },
-    "app": Object {
-      "dependencies": Object {
-        "a": "",
-        "b": "",
-        "c": "",
-        "i": "",
-      },
-      "extraneous": true,
-      "version": "1.2.3",
-    },
     "app/node_modules/i": Object {
       "extraneous": true,
       "version": "1.2.3",
@@ -9779,38 +9767,11 @@ Object {
       "link": true,
       "resolved": "packages/c",
     },
-    "packages/a": Object {
-      "dependencies": Object {
-        "b": "",
-        "c": "",
-        "x": "",
-      },
-      "extraneous": true,
-      "version": "1.2.3",
-    },
     "packages/a/node_modules/x": Object {
       "extraneous": true,
       "version": "1.2.3",
     },
-    "packages/b": Object {
-      "dependencies": Object {
-        "a": "",
-        "c": "",
-        "y": "",
-      },
-      "extraneous": true,
-      "version": "1.2.3",
-    },
     "packages/b/node_modules/y": Object {
-      "extraneous": true,
-      "version": "1.2.3",
-    },
-    "packages/c": Object {
-      "dependencies": Object {
-        "a": "",
-        "b": "",
-        "z": "",
-      },
       "extraneous": true,
       "version": "1.2.3",
     },
@@ -9925,7 +9886,7 @@ Object {
 
 exports[`test/shrinkwrap.js TAP look up from locks and such lockfile > full git 1`] = `
 Object {
-  "resolved": "git+ssh://git@github.com/isaacs/abbrev-js.git#a9ee72ebc8fe3975f1b0c7aeb3a8f2a806a432eb",
+  "resolved": "git+https://github.com/isaacs/abbrev-js.git#a9ee72ebc8fe3975f1b0c7aeb3a8f2a806a432eb",
 }
 `
 

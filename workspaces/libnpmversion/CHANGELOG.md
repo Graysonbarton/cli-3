@@ -1,5 +1,87 @@
 # Changelog
 
+## [9.0.0](https://github.com/npm/cli/compare/libnpmversion-v9.0.0-pre.1...libnpmversion-v9.0.0) (2026-07-08)
+### ⚠️ BREAKING CHANGES
+* `npm shrinkwrap` is removed, the `shrinkwrap` config alias is removed, and `npm-shrinkwrap.json` is no longer loaded or honored at the project root or from inside dependency tarballs. Rename project-root `npm-shrinkwrap.json` to `package-lock.json`; use `bundleDependencies` if you need to ship a locked dependency tree.
+* `npm` now supports node `^22.22.2 || ^24.15.0 || >=26.0.0`
+### Features
+* [`5b83698`](https://github.com/npm/cli/commit/5b83698a4f76e3f2962b9954dddb180fa85d4c77) [#9737](https://github.com/npm/cli/pull/9737) trigger release process (#9737) (@reggi)
+
+## [9.0.0-pre.1](https://github.com/npm/cli/compare/libnpmversion-v9.0.0-pre.0...libnpmversion-v9.0.0-pre.1) (2026-06-19)
+### ⚠️ BREAKING CHANGES
+* `npm` now supports node `^22.22.2 || ^24.15.0 || >=26.0.0`
+### Features
+* [`18eb967`](https://github.com/npm/cli/commit/18eb9672dc884be4412752fb6e55e9d33c261c65) [#9559](https://github.com/npm/cli/pull/9559) bump to new node engine range (@owlstronaut)
+### Bug Fixes
+* [`c5292fa`](https://github.com/npm/cli/commit/c5292fa8a09a56b25394d393faf21e47ffb096c0) [#9422](https://github.com/npm/cli/pull/9422) use prerelease strategy without a bug (@owlstronaut)
+### Documentation
+* [`d124c08`](https://github.com/npm/cli/commit/d124c0858da0b138cda2addcb0987b063ca86a47) [#9385](https://github.com/npm/cli/pull/9385) Document `npm_old_version` and `npm_new_version` environment variables (#9385) (@36degrees)
+### Dependencies
+* [`3dc18e5`](https://github.com/npm/cli/commit/3dc18e561b3304778f38f9e7637ab5e0b696797e) [#9559](https://github.com/npm/cli/pull/9559) `@npmcli/git@8.0.0`
+* [`21df0ab`](https://github.com/npm/cli/commit/21df0ab3c629496511a3c481ee721b0e62c16e92) [#9559](https://github.com/npm/cli/pull/9559) `proc-log@7.0.0`
+* [`30e89d9`](https://github.com/npm/cli/commit/30e89d922c0ee790524151a98049aad47de70773) [#9559](https://github.com/npm/cli/pull/9559) `json-parse-even-better-errors@6.0.0`
+* [`9d13ebf`](https://github.com/npm/cli/commit/9d13ebfc2adca5543e4797632039adaa7a318985) [#9559](https://github.com/npm/cli/pull/9559) `@npmcli/run-script@11.0.0`
+### Chores
+* [`0323f2d`](https://github.com/npm/cli/commit/0323f2d74bf2e747957c74992d9431e3fca35f85) [#9559](https://github.com/npm/cli/pull/9559) template-oss-apply (@owlstronaut)
+* [`ee3d87f`](https://github.com/npm/cli/commit/ee3d87fe521bc144493b93a94d456c22eb147dbf) [#9559](https://github.com/npm/cli/pull/9559) `@npmcli/template-oss@5.1.1` (@owlstronaut)
+* [`d25a179`](https://github.com/npm/cli/commit/d25a1798f3ba8ff80437f491afc17e98ef07c77f) [#9559](https://github.com/npm/cli/pull/9559) template-oss-apply (@owlstronaut)
+
+## [9.0.0-pre.0.0](https://github.com/npm/cli/compare/libnpmversion-v8.0.3...libnpmversion-v9.0.0-pre.0.0) (2026-05-20)
+### ⚠️ BREAKING CHANGES
+* `npm shrinkwrap` is removed, the `shrinkwrap` config alias is removed, and `npm-shrinkwrap.json` is no longer loaded or honored at the project root or from inside dependency tarballs. Rename project-root `npm-shrinkwrap.json` to `package-lock.json`; use `bundleDependencies` if you need to ship a locked dependency tree.
+### Features
+* [`2e5dcad`](https://github.com/npm/cli/commit/2e5dcad17a59ee9f69eeec27fc5b087b5b032df7) [#9262](https://github.com/npm/cli/pull/9262) drop npm-shrinkwrap.json support (@owlstronaut)
+### Chores
+* [`40fcab4`](https://github.com/npm/cli/commit/40fcab45d356545f8db7f34df3e5630116d0dd40) [#8991](https://github.com/npm/cli/pull/8991) `@npmcli/template-oss@4.29.0` (@wraithgar)
+
+## [8.0.3](https://github.com/npm/cli/compare/libnpmversion-v8.0.2...libnpmversion-v8.0.3) (2025-11-19)
+### Dependencies
+* [`05ac7a7`](https://github.com/npm/cli/commit/05ac7a7ea2a4d258658537a19ba350e07df34fda) [#8723](https://github.com/npm/cli/pull/8723) `proc-log@6.0.0`
+* [`9c0cefa`](https://github.com/npm/cli/commit/9c0cefa8417d9e14ee19dd5e833019f0f99ce837) [#8723](https://github.com/npm/cli/pull/8723) `json-parse-even-better-errors@5.0.0`
+### Chores
+* [`5e0909b`](https://github.com/npm/cli/commit/5e0909b74ea1510eaae348d66548c75030911ed8) [#8620](https://github.com/npm/cli/pull/8620) fix spelling in workspaces (#8620) (@jsoref)
+
+## [8.0.2](https://github.com/npm/cli/compare/libnpmversion-v8.0.1...libnpmversion-v8.0.2) (2025-09-23)
+### Dependencies
+* [`521823b`](https://github.com/npm/cli/commit/521823bc398de0eb85135a3ef09e217db93ed1ce) [#8576](https://github.com/npm/cli/pull/8576) `@npmcli/git@7.0.0`
+* [`6b4c5f9`](https://github.com/npm/cli/commit/6b4c5f92865230ed9a260cd3e8486bf3991120eb) [#8576](https://github.com/npm/cli/pull/8576) `@npmcli/run-script@10.0.0`
+### Chores
+* [`402a0ab`](https://github.com/npm/cli/commit/402a0ab1b4e5d1a8414dd063d0cbde0c0bc5a192) [#8576](https://github.com/npm/cli/pull/8576) `@npmcli/template-oss@4.25.1` (@wraithgar)
+* [`3f60b5f`](https://github.com/npm/cli/commit/3f60b5f9621b43ae0b8796d3a7160a603748f756) [#8383](https://github.com/npm/cli/pull/8383) `@npmcli/template-oss@4.24.4` (#8383) (@wraithgar)
+* [`01f8cc6`](https://github.com/npm/cli/commit/01f8cc6f001e3211135fa0563f7129aed09dc46c) [#8381](https://github.com/npm/cli/pull/8381) `@npmcli/template-oss@4.24.3` (#8381) (@wraithgar)
+
+## [8.0.1](https://github.com/npm/cli/compare/libnpmversion-v8.0.0...libnpmversion-v8.0.1) (2025-05-15)
+### Bug Fixes
+* [`71bb817`](https://github.com/npm/cli/commit/71bb817599bbaabe8e05a2bc7dd32ec16622bd93) [#8279](https://github.com/npm/cli/pull/8279) version: include prerelease when retrieving tag (#8279) (@milaninfy)
+
+## [8.0.0](https://github.com/npm/cli/compare/libnpmversion-v8.0.0-pre.0...libnpmversion-v8.0.0) (2024-12-16)
+### Features
+* [`a7bfc6d`](https://github.com/npm/cli/commit/a7bfc6df76882996ebb834dbca785fdf33b8c50d) [#7972](https://github.com/npm/cli/pull/7972) trigger release process (#7972) (@wraithgar)
+### Chores
+* [`a07f4e0`](https://github.com/npm/cli/commit/a07f4e0d921f640be6aa87736debd550ec478f89) [#7976](https://github.com/npm/cli/pull/7976) `@npmcli/template-oss@4.23.6` (@wraithgar)
+
+## [8.0.0-pre.0](https://github.com/npm/cli/compare/libnpmversion-v7.0.0...libnpmversion-v8.0.0-pre.0) (2024-11-26)
+### ⚠️ BREAKING CHANGES
+* libnpmversion now supports node `^20.17.0 || >=22.9.0`
+### Bug Fixes
+* [`57eef8d`](https://github.com/npm/cli/commit/57eef8df822885ebc57096a591191bdbb3f0c95b) [#7831](https://github.com/npm/cli/pull/7831) for libnpmversion sets node engine range to `^20.17.0 || >=22.9.0` (@reggi)
+### Chores
+* [`6edfe2f`](https://github.com/npm/cli/commit/6edfe2f3a45169b6d194ccd8d366bb8d0e09b4a5) [#7937](https://github.com/npm/cli/pull/7937) `@npmcli/template-oss@4.23.5` (@wraithgar)
+
+## [7.0.0](https://github.com/npm/cli/compare/libnpmversion-v6.0.3...libnpmversion-v7.0.0) (2024-10-03)
+### ⚠️ BREAKING CHANGES
+* `libnpmversion` now supports node `^18.17.0 || >=20.5.0`
+### Bug Fixes
+* [`d3c0b1e`](https://github.com/npm/cli/commit/d3c0b1efca1431ee3dae24fdec96f7251b347614) [#7803](https://github.com/npm/cli/pull/7803) align libnpmversion to npm 10 node engine range (@reggi)
+### Dependencies
+* [`b84d907`](https://github.com/npm/cli/commit/b84d9079feaf9582763356e538c7247383b00e9f) [#7803](https://github.com/npm/cli/pull/7803) update `@npmcli/git@6.0.1`
+* [`f6909a0`](https://github.com/npm/cli/commit/f6909a022c9373c85d980c96a30f47a3a65aa4a9) [#7803](https://github.com/npm/cli/pull/7803) update `proc-log@5.0.0`
+* [`7214149`](https://github.com/npm/cli/commit/72141496fbc7e5f0e0824d584b82690eeee45bb5) [#7803](https://github.com/npm/cli/pull/7803) update `json-parse-even-better-errors@4.0.0`
+* [`538a4cc`](https://github.com/npm/cli/commit/538a4cc1dd731a3643ab4477fe545db39997bcdf) [#7803](https://github.com/npm/cli/pull/7803) update `@npmcli/run-script@9.0.1`
+### Chores
+* [`2072705`](https://github.com/npm/cli/commit/2072705aa80d009dc077639adc305692f4a6c0b9) [#7803](https://github.com/npm/cli/pull/7803) update `@npmcli/eslint-config@5.0.1` (@reggi)
+* [`8035725`](https://github.com/npm/cli/commit/80357253ecd8483463cd66c783c4464c330d72df) [#7756](https://github.com/npm/cli/pull/7756) `@npmcli/template-oss@4.23.3` (@wraithgar)
+
 ## [6.0.3](https://github.com/npm/cli/compare/libnpmversion-v6.0.2...libnpmversion-v6.0.3) (2024-05-29)
 
 ### Bug Fixes

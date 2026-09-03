@@ -9,7 +9,9 @@ exports[`test/lib/commands/ls.js TAP ignore missing optional deps --json > ls --
 Array [
   "invalid: optional-wrong@3.2.1 {CWD}/prefix/node_modules/optional-wrong",
   "missing: peer-missing@1, required by test-npm-ls-ignore-missing-optional@1.2.3",
+  "extraneous: peer-optional-ok@1.2.3 {CWD}/prefix/node_modules/peer-optional-ok",
   "invalid: peer-optional-wrong@3.2.1 {CWD}/prefix/node_modules/peer-optional-wrong",
+  "extraneous: peer-optional-wrong@3.2.1 {CWD}/prefix/node_modules/peer-optional-wrong",
   "invalid: peer-wrong@3.2.1 {CWD}/prefix/node_modules/peer-wrong",
   "missing: prod-missing@1, required by test-npm-ls-ignore-missing-optional@1.2.3",
   "invalid: prod-wrong@3.2.1 {CWD}/prefix/node_modules/prod-wrong",
@@ -36,8 +38,8 @@ test-npm-ls-ignore-missing-optional@1.2.3 {CWD}/prefix
 +-- UNMET DEPENDENCY peer-missing@1
 +-- peer-ok@1.2.3
 +-- UNMET OPTIONAL DEPENDENCY peer-optional-missing@1
-+-- peer-optional-ok@1.2.3
-+-- peer-optional-wrong@3.2.1 invalid: "1" from the root project
++-- peer-optional-ok@1.2.3 extraneous
++-- peer-optional-wrong@3.2.1 invalid: "1" from the root project extraneous
 +-- peer-wrong@3.2.1 invalid: "1" from the root project
 +-- UNMET DEPENDENCY prod-missing@1
 +-- prod-ok@1.2.3
@@ -248,7 +250,7 @@ exports[`test/lib/commands/ls.js TAP ls --parseable no args > should output pars
 {CWD}/prefix/node_modules/dog
 `
 
-exports[`test/lib/commands/ls.js TAP ls --parseable overridden dep > should contain overridden outout 1`] = `
+exports[`test/lib/commands/ls.js TAP ls --parseable overridden dep > should contain overridden output 1`] = `
 {CWD}/prefix:test-overridden@1.0.0
 {CWD}/prefix/node_modules/foo:foo@1.0.0
 {CWD}/prefix/node_modules/bar:bar@1.0.0:OVERRIDDEN
@@ -288,11 +290,11 @@ exports[`test/lib/commands/ls.js TAP ls --parseable using aliases > should outpu
 {CWD}/prefix/node_modules/a
 `
 
-exports[`test/lib/commands/ls.js TAP ls --parseable with filter arg > should output parseable contaning only occurrences of filtered by package 1`] = `
+exports[`test/lib/commands/ls.js TAP ls --parseable with filter arg > should output parseable containing only occurrences of filtered by package 1`] = `
 {CWD}/prefix/node_modules/chai
 `
 
-exports[`test/lib/commands/ls.js TAP ls --parseable with filter arg nested dep > should output parseable contaning only occurrences of filtered package 1`] = `
+exports[`test/lib/commands/ls.js TAP ls --parseable with filter arg nested dep > should output parseable containing only occurrences of filtered package 1`] = `
 {CWD}/prefix/node_modules/dog
 `
 
@@ -300,7 +302,7 @@ exports[`test/lib/commands/ls.js TAP ls --parseable with missing filter arg > sh
 
 `
 
-exports[`test/lib/commands/ls.js TAP ls --parseable with multiple filter args > should output parseable contaning only occurrences of multiple filtered packages and their ancestors 1`] = `
+exports[`test/lib/commands/ls.js TAP ls --parseable with multiple filter args > should output parseable containing only occurrences of multiple filtered packages and their ancestors 1`] = `
 {CWD}/prefix/node_modules/chai
 {CWD}/prefix/node_modules/dog
 `
@@ -311,6 +313,12 @@ test-npm-ls@1.0.0 {CWD}/prefix
 +-- optional-dep@1.0.0
 \`-- prod-dep@1.0.0
   \`-- dog@2.0.0
+`
+
+exports[`test/lib/commands/ls.js TAP ls .npm-extension dep > human output annotates the transformed node 1`] = `
+test-npm-extension@1.0.0 {CWD}/prefix
+\`-- foo@1.0.0 .npm-extension: dependencies.bar
+  \`-- bar@1.0.0
 `
 
 exports[`test/lib/commands/ls.js TAP ls broken resolved field > should NOT print git refs in output tree 1`] = `
@@ -453,7 +461,7 @@ workspaces-tree@1.0.0 {CWD}/prefix
       \`-- bar@1.0.0
 `
 
-exports[`test/lib/commands/ls.js TAP ls loading a tree containing workspaces should inlude root and specified workspace > output 1`] = `
+exports[`test/lib/commands/ls.js TAP ls loading a tree containing workspaces should include root and specified workspace > output 1`] = `
 workspaces-tree@1.0.0 {CWD}/prefix
 +-- d@1.0.0 -> ./d
 | \`-- foo@1.1.1
@@ -541,17 +549,23 @@ test-npm-ls@1.0.0 {CWD}/prefix
   \`-- dog@1.0.0
 `
 
-exports[`test/lib/commands/ls.js TAP ls overridden dep > should contain overridden outout 1`] = `
+exports[`test/lib/commands/ls.js TAP ls overridden dep > should contain overridden output 1`] = `
 test-overridden@1.0.0 {CWD}/prefix
 \`-- foo@1.0.0
   \`-- bar@1.0.0 overridden
 `
 
-exports[`test/lib/commands/ls.js TAP ls overridden dep w/ color > should contain overridden outout 1`] = `
+exports[`test/lib/commands/ls.js TAP ls overridden dep w/ color > should contain overridden output 1`] = `
 [0mtest-overridden@1.0.0 {CWD}/prefix[0m
 [0m\`-- foo@1.0.0[0m
 [0m  \`-- bar@1.0.0 [2moverridden[22m[0m
 [0m[0m
+`
+
+exports[`test/lib/commands/ls.js TAP ls packageExtensions dep > human output annotates the extended node 1`] = `
+test-package-extensions@1.0.0 {CWD}/prefix
+\`-- foo@1.0.0 packageExtensions: dependencies.bar
+  \`-- bar@1.0.0
 `
 
 exports[`test/lib/commands/ls.js TAP ls print deduped symlinks > should output tree containing linked deps 1`] = `
@@ -563,7 +577,7 @@ print-deduped-symlinks@1.0.0 {CWD}/prefix
 
 exports[`test/lib/commands/ls.js TAP ls resolved points to git ref > should output tree containing git refs 1`] = `
 test-npm-ls@1.0.0 {CWD}/prefix
-\`-- abbrev@1.1.1 (git+ssh://git@github.com/isaacs/abbrev-js.git#b8f3a2fc0c3bb8ffd8b0d0072cc6b5a3667e963c)
+\`-- abbrev@1.1.1 (git+https://github.com/isaacs/abbrev-js.git#b8f3a2fc0c3bb8ffd8b0d0072cc6b5a3667e963c)
 `
 
 exports[`test/lib/commands/ls.js TAP ls unmet optional dep > should output tree with empty entry for missing optional deps 1`] = `
@@ -609,18 +623,18 @@ dedupe-entries@1.0.0 {CWD}/prefix
 \`-- @npmcli/c@1.0.0
 `
 
-exports[`test/lib/commands/ls.js TAP ls with dot filter arg > should output tree contaning only occurrences of filtered by package and colored output 1`] = `
+exports[`test/lib/commands/ls.js TAP ls with dot filter arg > should output tree containing only occurrences of filtered by package and colored output 1`] = `
 test-npm-ls@1.0.0 {CWD}/prefix
 \`-- (empty)
 `
 
-exports[`test/lib/commands/ls.js TAP ls with filter arg > should output tree contaning only occurrences of filtered by package and colored output 1`] = `
+exports[`test/lib/commands/ls.js TAP ls with filter arg > should output tree containing only occurrences of filtered by package and colored output 1`] = `
 [0mtest-npm-ls@1.0.0 {CWD}/prefix[0m
 [0m\`-- [33mchai@1.0.0[39m[0m
 [0m[0m
 `
 
-exports[`test/lib/commands/ls.js TAP ls with filter arg nested dep > should output tree contaning only occurrences of filtered package and its ancestors 1`] = `
+exports[`test/lib/commands/ls.js TAP ls with filter arg nested dep > should output tree containing only occurrences of filtered package and its ancestors 1`] = `
 test-npm-ls@1.0.0 {CWD}/prefix
 \`-- foo@1.0.0
   \`-- dog@1.0.0
@@ -631,7 +645,7 @@ test-npm-ls@1.0.0 {CWD}/prefix
 \`-- (empty)
 `
 
-exports[`test/lib/commands/ls.js TAP ls with multiple filter args > should output tree contaning only occurrences of multiple filtered packages and their ancestors 1`] = `
+exports[`test/lib/commands/ls.js TAP ls with multiple filter args > should output tree containing only occurrences of multiple filtered packages and their ancestors 1`] = `
 test-npm-ls@1.0.0 {CWD}/prefix
 +-- chai@1.0.0
 \`-- foo@1.0.0
